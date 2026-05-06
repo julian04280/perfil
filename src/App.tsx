@@ -186,7 +186,7 @@ function App() {
             </div>
             <div className="contact-item">
               <h3>Teléfono</h3>
-              <p>3024498292</p>
+              <p><a href="https://wa.me/573024498292" target="_blank" rel="noopener noreferrer">3024498292 (WhatsApp)</a></p>
             </div>
             <div className="contact-item">
               <h3>LinkedIn</h3>
@@ -195,6 +195,14 @@ function App() {
             <div className="contact-item">
               <h3>GitHub</h3>
               <p><a href="https://github.com/julian04280" target="_blank" rel="noopener noreferrer">github.com/julian-diaz</a></p>
+            </div>
+            <div className="contact-item">
+              <h3>Facebook</h3>
+              <p><a href="https://www.facebook.com/julian04280" target="_blank" rel="noopener noreferrer">facebook.com/julian04280</a></p>
+            </div>
+            <div className="contact-item">
+              <h3>Instagram</h3>
+              <p><a href="https://www.instagram.com/julian04280/" target="_blank" rel="noopener noreferrer">@julian04280</a></p>
             </div>
           </div>
         </div>
