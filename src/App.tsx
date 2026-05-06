@@ -1,8 +1,17 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import heroBg from './assets/hero-bg.jpg';
+import profileImg from './assets/hero-bg2.jpeg';
 import './App.css';
 
 function App() {
+  const heroStyle = {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroBg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed'
+  };
+
   return (
     <div className="App">
       <Helmet>
@@ -32,7 +41,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="hero">
+      <section id="hero" className="hero" style={heroStyle}>
         <div className="hero-content">
           <h1>Hola, soy Julian Andres Diaz Rueda</h1>
           <p className="hero-subtitle">Ingeniero de Sistemas Senior | Especialista en IA Generativa y Automatización</p>
@@ -58,7 +67,7 @@ function App() {
               </p>
             </div>
             <div className="about-image">
-              <img src="https://via.placeholder.com/300x300" alt="Julian Andres Diaz Rueda" />
+              <img src={profileImg} alt="Julian Andres Diaz Rueda" />
             </div>
           </div>
         </div>
