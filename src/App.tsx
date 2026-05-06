@@ -1,9 +1,21 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <Helmet>
+        <title>Julian Andres Diaz Rueda - Ingeniero de Sistemas Senior</title>
+        <meta name="description" content="Ingeniero de Sistemas Senior con más de 12 años de experiencia en Full-stack, IA Generativa y Automatización. Especialista en Java, React, Node.js y microservicios." />
+        <meta name="keywords" content="Ingeniero de Sistemas, Full-stack Developer, IA Generativa, Automatización, Java, React, Node.js, Bogotá, Colombia" />
+        <meta name="author" content="Julian Andres Diaz Rueda" />
+        <meta property="og:title" content="Julian Andres Diaz Rueda - Portfolio" />
+        <meta property="og:description" content="Portfolio profesional de Julian Andres Diaz Rueda, Ingeniero de Sistemas Senior especializado en IA y desarrollo Full-stack." />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       {/* Navigation */}
       <nav className="navbar">
         <div className="container">
