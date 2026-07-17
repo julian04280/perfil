@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import heroBg from './assets/hero-bg.jpg';
 import profileImg from './assets/hero-bg2.jpeg';
 import './App.css';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const heroStyle = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroBg})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed'
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
@@ -29,16 +35,28 @@ function App() {
       <nav className="navbar">
         <div className="container">
           <h1 className="logo">JULIAN ANDRES DIAZ RUEDA</h1>
-          <ul className="nav-links">
-            <li><a href="#hero">Inicio</a></li>
-            <li><a href="#about">Sobre Mí</a></li>
-            <li><a href="#skills">Habilidades</a></li>
-            <li><a href="#experience">Experiencia</a></li>
-            <li><a href="#education">Educación</a></li>
-            <li><a href="#contact">Contacto</a></li>
+          <button 
+            className={`hamburger ${isMenuOpen ? 'active' : ''}`} 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Menú de navegación"
+            aria-expanded={isMenuOpen}
+          >
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </button>
+          <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+            <li><a href="#hero" onClick={closeMenu}>Inicio</a></li>
+            <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
+            <li><a href="#skills" onClick={closeMenu}>Habilidades</a></li>
+            <li><a href="#experience" onClick={closeMenu}>Experiencia</a></li>
+            <li><a href="#education" onClick={closeMenu}>Educación</a></li>
+            <li><a href="#contact" onClick={closeMenu}>Contacto</a></li>
           </ul>
         </div>
       </nav>
+
+      {isMenuOpen && <div className="nav-overlay" onClick={closeMenu}></div>}
 
       {/* Hero Section */}
       <section id="hero" className="hero" style={heroStyle}>
