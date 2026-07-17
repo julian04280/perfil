@@ -1,8 +1,51 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import heroBg from './assets/hero-bg.jpg';
+import heroBg from './assets/fondo-developer.jpg';
 import profileImg from './assets/hero-bg2.jpeg';
 import './App.css';
+
+const projects = [
+  {
+    id: 5,
+    title: 'BRZY University',
+    subtitle: 'Plataforma de Capacitación LMS',
+    description: 'Plataforma de entrenamiento privado y certificación para representantes comerciales e ingenieros de energía solar de BRZY NRG.',
+    url: 'https://brzy.org/',
+    tech: ['React / SPA', 'Solar Energy', 'LMS Onboarding', 'Certificaciones']
+  },
+  {
+    id: 2,
+    title: 'Dojasoft',
+    subtitle: 'Software Factory & Soluciones ERP',
+    description: 'Portal oficial de Dojasoft, compañía dedicada al desarrollo de software y soluciones informáticas a la medida para la gestión corporativa.',
+    url: 'https://dojasoft.com/inicio',
+    tech: ['HTML5', 'React / PHP', 'Sistemas ERP', 'Bases de Datos']
+  },
+  {
+    id: 4,
+    title: 'Herramientas Naranjo',
+    subtitle: 'Grabado & Herramientas de Joyería',
+    description: 'Catálogo web y plataforma interactiva para Herramientas Naranjo S.A.S., comercializador líder de herramientas para joyería y grabado.',
+    url: 'https://herramientas-naranjo.vercel.app/',
+    tech: ['React', 'Vercel', 'Joyería y Grabado', 'Catálogo Web']
+  },
+  {
+    id: 1,
+    title: 'Grupo Nivel 5',
+    subtitle: 'Seguridad Privada & Consultoría',
+    description: 'Plataforma corporativa de Grupo Nivel 5 enfocada en soluciones integrales de seguridad física, electrónica y consultoría de riesgos en Colombia.',
+    url: 'https://www.gruponivel5.com/',
+    tech: ['Next.js', 'React', 'CSS Moderno', 'Web Corporativa']
+  },
+  {
+    id: 3,
+    title: 'Seguridad Nivel 5 Ltda',
+    subtitle: 'Vigilancia y Seguridad Electrónica',
+    description: 'Sitio oficial de la empresa de vigilancia y seguridad privada Seguridad Nivel 5, con servicios de monitoreo 24/7, CCTV y rastreo satelital.',
+    url: 'https://seguridadnivel5ltda.com/',
+    tech: ['Vigilancia', 'Monitoreo 24/7', 'CCTV', 'Seguridad Privada']
+  }
+];
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,6 +92,7 @@ function App() {
             <li><a href="#hero" onClick={closeMenu}>Inicio</a></li>
             <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
             <li><a href="#skills" onClick={closeMenu}>Habilidades</a></li>
+            <li><a href="#portfolio" onClick={closeMenu}>Portafolio</a></li>
             <li><a href="#experience" onClick={closeMenu}>Experiencia</a></li>
             <li><a href="#education" onClick={closeMenu}>Educación</a></li>
             <li><a href="#contact" onClick={closeMenu}>Contacto</a></li>
@@ -116,6 +160,82 @@ function App() {
               <h3>Bases de Datos</h3>
               <p>SQL Server, Oracle, MySQL, MongoDB, PostgreSQL, JPA, JDBC</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Section */}
+      <section id="portfolio" className="section portfolio-section">
+        <div className="container">
+          <h2>Portafolio de Proyectos</h2>
+          <p className="section-subtitle">Explora e interactúa con cada sitio web directamente desde su previsualización.</p>
+          
+          <div className="portfolio-grid">
+            {projects.map((project) => (
+              <div key={project.id} className="portfolio-card">
+                <div className="portfolio-card-header">
+                  <h3>{project.title}</h3>
+                  <span className="project-badge">{project.subtitle}</span>
+                </div>
+                <p className="portfolio-card-desc">{project.description}</p>
+                
+                <div className="tech-tags">
+                  {project.tech.map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+
+                {/* Direct Browser mockup iframe integration */}
+                <div className="browser-mockup">
+                  <div className="browser-topbar">
+                    <div className="browser-dots">
+                      <span className="dot dot-red"></span>
+                      <span className="dot dot-yellow"></span>
+                      <span className="dot dot-green"></span>
+                    </div>
+                    <div className="browser-urlbar">
+                      <span className="lock-icon">🔒</span>
+                      <span className="url-text">{project.url}</span>
+                    </div>
+                    <div className="browser-actions">
+                      <a 
+                        href={project.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        title="Abrir en pestaña nueva"
+                        className="browser-btn"
+                      >
+                        ↗
+                      </a>
+                    </div>
+                  </div>
+                  <div className="browser-iframe-container">
+                    <iframe 
+                      src={project.url} 
+                      title={`Vista previa de ${project.title}`}
+                      className="browser-iframe"
+                      sandbox="allow-scripts allow-same-origin allow-forms"
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                </div>
+
+                <p className="iframe-warning">
+                  ⚠️ <strong>Nota:</strong> Si el sitio no carga, haz clic en <a href={project.url} target="_blank" rel="noopener noreferrer">Abrir sitio ↗</a>.
+                </p>
+
+                <div className="portfolio-card-actions">
+                  <a 
+                    href={project.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="btn-external"
+                  >
+                    Visitar Sitio Oficial ↗
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
