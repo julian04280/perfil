@@ -332,7 +332,7 @@ function App() {
             </div>
             <div className="contact-item">
               <h3>GitHub</h3>
-              <p><a href="https://github.com/julian04280" target="_blank" rel="noopener noreferrer">github.com/julian-diaz</a></p>
+              <p><a href="https://github.com/julian04280" target="_blank" rel="noopener noreferrer">github.com/julian04280</a></p>
             </div>
             <div className="contact-item">
               <h3>Facebook</h3>
