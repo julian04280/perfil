@@ -92,6 +92,7 @@ function App() {
             <li><a href="#hero" onClick={closeMenu}>Inicio</a></li>
             <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
             <li><a href="#skills" onClick={closeMenu}>Habilidades</a></li>
+            <li><a href="#soft-skills" onClick={closeMenu}>Habilidades Blandas</a></li>
             <li><a href="#portfolio" onClick={closeMenu}>Portafolio</a></li>
             <li><a href="#experience" onClick={closeMenu}>Experiencia</a></li>
             <li><a href="#education" onClick={closeMenu}>Educación</a></li>
@@ -160,6 +161,52 @@ function App() {
               <h3>Bases de Datos</h3>
               <p>SQL Server, Oracle, MySQL, MongoDB, PostgreSQL, JPA, JDBC</p>
             </div>
+          </div>
+
+          {/* Soft Skills */}
+          <h2 id="soft-skills" className="soft-skills-title">Habilidades Blandas</h2>
+          <div className="soft-skills-grid">
+
+            {/* Highlighted: Trabajo en Equipo */}
+            <div className="soft-skill-item soft-skill-featured">
+              <div className="soft-skill-icon">🤝</div>
+              <h3>Trabajo en Equipo</h3>
+              <p>Creo firmemente en el poder de la colaboración. Me integro con naturalidad en equipos multidisciplinarios, fomento un ambiente de confianza y respeto mutuo, y priorizo los objetivos colectivos sobre los individuales para entregar resultados excepcionales.</p>
+              <span className="soft-skill-badge">Destacada</span>
+            </div>
+
+            {/* Highlighted: Mentoría & Enseñanza */}
+            <div className="soft-skill-item soft-skill-featured">
+              <div className="soft-skill-icon">🎓</div>
+              <h3>Mentoría & Enseñanza</h3>
+              <p>Me apasiona compartir el conocimiento y guiar a otros en su crecimiento profesional. Disfruto acompañar a desarrolladores junior y senior, transmitir buenas prácticas, y ayudar a que cada miembro del equipo alcance su máximo potencial técnico.</p>
+              <span className="soft-skill-badge">Destacada</span>
+            </div>
+
+            <div className="soft-skill-item">
+              <div className="soft-skill-icon">🧭</div>
+              <h3>Liderazgo Técnico</h3>
+              <p>Capacidad para guiar equipos hacia arquitecturas sólidas, tomar decisiones técnicas asertivas y ser referente técnico en proyectos complejos bajo metodologías ágiles.</p>
+            </div>
+
+            <div className="soft-skill-item">
+              <div className="soft-skill-icon">💬</div>
+              <h3>Comunicación Efectiva</h3>
+              <p>Habilidad para traducir conceptos técnicos complejos en lenguaje comprensible para stakeholders no técnicos, facilitando la alineación entre áreas de negocio y tecnología.</p>
+            </div>
+
+            <div className="soft-skill-item">
+              <div className="soft-skill-icon">🔄</div>
+              <h3>Adaptabilidad</h3>
+              <p>Me adapto con facilidad a nuevos entornos, tecnologías y metodologías de trabajo. La agilidad y el aprendizaje continuo son parte esencial de mi perfil profesional.</p>
+            </div>
+
+            <div className="soft-skill-item">
+              <div className="soft-skill-icon">🎯</div>
+              <h3>Orientación a Resultados</h3>
+              <p>Enfocado en entregar soluciones de alto impacto dentro de los plazos establecidos, con un ojo crítico en la calidad del código y la experiencia del usuario final.</p>
+            </div>
+
           </div>
         </div>
       </section>
