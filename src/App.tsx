@@ -119,11 +119,36 @@ function App() {
           <div className="about-content">
             <div className="about-text">
               <p>
-                Ingeniero de Sistemas Senior con más de 12 años de trayectoria liderando arquitecturas Full-stack y
-                optimización de sistemas. Especialista en IA Generativa y Automatización, destacando el diseño del bot
-                GENIA para Telefónica, donde orquesté flujos lógicos mediante Node-RED e integración de LLMs. Experto
-                en microservicios con Java (Spring Boot) y ecosistemas Front-end (React/Angular). Líder técnico enfocado
-                en la calidad de software bajo metodologías ágiles, implementando TDD y Arquitectura Hexagonal.
+                Ingeniero de Sistemas en formación especializado en la arquitectura, desarrollo e
+                integración local de agentes de Inteligencia Artificial (IA), Automatización Corporativa
+                (RPA) y soluciones Full Stack. Profesional profundamente motivado por el trabajo en
+                equipo y el aprendizaje continuo, enfocado en integrarse a entornos colaborativos
+                donde pueda aprender de profesionales de alto nivel, compartir ideas y fortalecer
+                constantemente sus habilidades técnicas y humanas.
+              </p>
+              <p>
+                Experto en el diseño e implementación de ecosistemas de agentes autónomos y flujos
+                de trabajo inteligentes. Destaco en la integración y orquestación de grandes modelos
+                de lenguaje (LLMs) como ChatGPT, Gemini, DeepSeek y Claude a través de Node-RED,
+                aprovechando sus APIs para automatizar procesos y transformar la eficiencia operativa
+                empresarial.
+              </p>
+              <p>
+                Con sólida experiencia coordinando equipos técnicos bajo metodologías ágiles
+                (Scrum, Kanban) y marcos de mejora continua (Kaizen), cuento con un amplio historial
+                en el desarrollo e integración de software de alta complejidad. En el ámbito del desarrollo,
+                me especializo en arquitecturas Full Stack utilizando el ecosistema JavaScript/TypeScript
+                con React y Next.js para el Frontend; mientras que para la lógica del Backend me apoyo
+                en tecnologías como Java (Spring Boot) y Node.js.
+              </p>
+              <p>
+                Experto en la construcción de microservicios eficientes, aplicaciones REST y la gestión
+                de bases de datos avanzadas (MySQL), conectando estos sistemas tradicionales con
+                herramientas de IA. Profesional enfocado en el desarrollo guiado por pruebas (TDD), la
+                escalabilidad de sistemas y la entrega constante de valor técnico en sinergia con el equipo
+                de trabajo. Especialista en Ingeniería de Prompts avanzada y gestión dinámica del contexto
+                para delimitar el alcance de la IA, mitigar alucinaciones y garantizar respuestas precisas
+                alineadas con las reglas de negocio.
               </p>
               <p>
                 Bogotá / Chía, Colombia | 3024498292 | julian04280@gmail.com
