@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import heroBg from './assets/fondo-developer.jpg';
+import heroAvatar from './assets/julian-avatar.png';
 import profileImg from './assets/hero-bg2.jpeg';
 import './App.css';
 
@@ -9,9 +10,9 @@ const projects = [
     id: 5,
     title: 'BRZY University',
     subtitle: 'Plataforma de Capacitación LMS',
-    description: 'Plataforma de entrenamiento privado y certificación para representantes comerciales e ingenieros de energía solar de BRZY NRG.',
+    description: 'Plataforma de capacitación con paneles por rol, onboarding y certificaciones. Desarrollo full stack con agentes de IA como apoyo al proceso, dirigiendo y validando la implementación técnica.',
     url: 'https://brzy.org/',
-    tech: ['React / SPA', 'Solar Energy', 'LMS Onboarding', 'Certificaciones']
+    tech: ['React', 'PocketBase', 'AI-assisted development', 'LMS', 'Certificaciones']
   },
   {
     id: 2,
@@ -49,46 +50,63 @@ const projects = [
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const heroStyle = {
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroBg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed'
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroBg})`
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
+  const closeMenuAndRestoreFocus = () => {
+    setIsMenuOpen(false);
+    menuButtonRef.current?.focus();
+  };
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isMenuOpen]);
+
   return (
     <div className="App">
       <Helmet>
-        <title>Julian Andres Diaz Rueda - Ingeniero de Sistemas Senior</title>
-        <meta name="description" content="Ingeniero de Sistemas Senior con más de 12 años de experiencia en Full-stack, IA Generativa y Automatización. Especialista en Java, React, Node.js y microservicios." />
-        <meta name="keywords" content="Ingeniero de Sistemas, Full-stack Developer, IA Generativa, Automatización, Java, React, Node.js, Bogotá, Colombia" />
+        <title>Julián Andrés Díaz Rueda | Ingeniero de IA y Automatización</title>
+        <meta name="description" content="Ingeniero de software enfocado en soluciones aplicadas de IA y automatización: integración de LLM y NLP mediante APIs, flujos con Node-RED e interfaces web para asistentes y agentes." />
+        <meta name="keywords" content="Ingeniero de IA, Automatización, IA Generativa, LLM, NLP, Node-RED, React, Java, Bogotá, Colombia" />
         <meta name="author" content="Julian Andres Diaz Rueda" />
-        <meta property="og:title" content="Julian Andres Diaz Rueda - Portfolio" />
-        <meta property="og:description" content="Portfolio profesional de Julian Andres Diaz Rueda, Ingeniero de Sistemas Senior especializado en IA y desarrollo Full-stack." />
+        <meta property="og:title" content="Julián Andrés Díaz Rueda | Ingeniero de IA y Automatización" />
+        <meta property="og:description" content="Ingeniero de software enfocado en soluciones aplicadas de IA, integración de LLM y NLP, automatización con Node-RED y desarrollo full stack." />
         <meta property="og:type" content="website" />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
       {/* Navigation */}
-      <nav className="navbar">
+      <nav className="navbar" aria-label="Navegación principal">
         <div className="container">
-          <h1 className="logo">JULIAN ANDRES DIAZ RUEDA</h1>
+          <a className="logo" href="#hero" onClick={closeMenu} aria-label="Inicio: Julián Andrés Díaz Rueda">JAD<span aria-hidden="true">.</span></a>
           <button 
+            ref={menuButtonRef}
             className={`hamburger ${isMenuOpen ? 'active' : ''}`} 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Menú de navegación"
             aria-expanded={isMenuOpen}
+            aria-controls="primary-navigation"
+            type="button"
           >
             <span className="bar"></span>
             <span className="bar"></span>
             <span className="bar"></span>
           </button>
-          <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+          <ul id="primary-navigation" className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
             <li><a href="#hero" onClick={closeMenu}>Inicio</a></li>
             <li><a href="#about" onClick={closeMenu}>Sobre Mí</a></li>
             <li><a href="#skills" onClick={closeMenu}>Habilidades</a></li>
@@ -101,58 +119,39 @@ function App() {
         </div>
       </nav>
 
-      {isMenuOpen && <div className="nav-overlay" onClick={closeMenu}></div>}
+      {isMenuOpen && <button className="nav-overlay" type="button" aria-label="Cerrar menú de navegación" onClick={closeMenuAndRestoreFocus}></button>}
 
+      <a className="skip-link" href="#main-content">Saltar al contenido principal</a>
+      <main id="main-content" tabIndex={-1}>
       {/* Hero Section */}
-      <section id="hero" className="hero" style={heroStyle}>
+      <section id="hero" className="hero" style={heroStyle} aria-labelledby="page-title">
         <div className="hero-content">
-          <h1>Hola, soy Julian Andres Diaz Rueda</h1>
-          <p className="hero-subtitle">Ingeniero de Sistemas Senior | Especialista en IA Generativa y Automatización</p>
-          <a href="#about" className="cta-button">Conóceme más</a>
+          <p className="eyebrow"><span className="availability-dot" /> Portafolio profesional · Bogotá, Colombia</p>
+          <h1 id="page-title"><span>Ingeniero de IA<br className="hero-break" /> y Automatización</span></h1>
+          <p className="hero-subtitle">Soy Julián Andrés Díaz Rueda, ingeniero de software enfocado en soluciones aplicadas de IA: integro LLM y NLP mediante APIs, orquesto flujos con Node-RED y conecto asistentes y agentes con interfaces web.</p>
+          <div className="hero-actions">
+            <a href="#portfolio" className="cta-button">Ver proyectos <span aria-hidden="true">↗</span></a>
+            <a href="#about" className="hero-secondary">Conoce mi perfil <span aria-hidden="true">↓</span></a>
+          </div>
+          <dl className="hero-stats" aria-label="Resumen profesional">
+            <div><dt>IA aplicada</dt><dd>LLM, NLP y agentes vía API</dd></div>
+            <div><dt>Node-RED</dt><dd>automatización de flujos</dd></div>
+            <div><dt>Full stack</dt><dd>React, Angular, Java y Node.js</dd></div>
+          </dl>
         </div>
+        <div className="hero-portrait" aria-hidden="true"><img src={heroAvatar} alt="" fetchPriority="high" /></div>
+        <a href="#about" className="scroll-cue" aria-label="Desplazarse a la sección Sobre mí">DESLIZA <span aria-hidden="true">↓</span></a>
       </section>
 
       {/* About Section */}
-      <section id="about" className="section">
+      <section id="about" className="section" aria-labelledby="about-title">
         <div className="container">
-          <h2>Sobre Mí</h2>
+          <h2 id="about-title">Sobre Mí</h2>
           <div className="about-content">
             <div className="about-text">
-              <p>
-                Ingeniero de Sistemas en formación especializado en la arquitectura, desarrollo e
-                integración local de agentes de Inteligencia Artificial (IA), Automatización Corporativa
-                (RPA) y soluciones Full Stack. Profesional profundamente motivado por el trabajo en
-                equipo y el aprendizaje continuo, enfocado en integrarse a entornos colaborativos
-                donde pueda aprender de profesionales de alto nivel, compartir ideas y fortalecer
-                constantemente sus habilidades técnicas y humanas.
-              </p>
-              <p>
-                Experto en el diseño e implementación de ecosistemas de agentes autónomos y flujos
-                de trabajo inteligentes. Destaco en la integración y orquestación de grandes modelos
-                de lenguaje (LLMs) como ChatGPT, Gemini, DeepSeek y Claude a través de Node-RED,
-                aprovechando sus APIs para automatizar procesos y transformar la eficiencia operativa
-                empresarial.
-              </p>
-              <p>
-                Con sólida experiencia coordinando equipos técnicos bajo metodologías ágiles
-                (Scrum, Kanban) y marcos de mejora continua (Kaizen), cuento con un amplio historial
-                en el desarrollo e integración de software de alta complejidad. En el ámbito del desarrollo,
-                me especializo en arquitecturas Full Stack utilizando el ecosistema JavaScript/TypeScript
-                con React y Next.js para el Frontend; mientras que para la lógica del Backend me apoyo
-                en tecnologías como Java (Spring Boot) y Node.js.
-              </p>
-              <p>
-                Experto en la construcción de microservicios eficientes, aplicaciones REST y la gestión
-                de bases de datos avanzadas (MySQL), conectando estos sistemas tradicionales con
-                herramientas de IA. Profesional enfocado en el desarrollo guiado por pruebas (TDD), la
-                escalabilidad de sistemas y la entrega constante de valor técnico en sinergia con el equipo
-                de trabajo. Especialista en Ingeniería de Prompts avanzada y gestión dinámica del contexto
-                para delimitar el alcance de la IA, mitigar alucinaciones y garantizar respuestas precisas
-                alineadas con las reglas de negocio.
-              </p>
-              <p>
-                Bogotá / Chía, Colombia | 3024498292 | julian04280@gmail.com
-              </p>
+              <p>Ingeniero de software enfocado en diseñar e integrar soluciones aplicadas de inteligencia artificial y automatización. En Fractalia Colombia, para GENIA de Telefónica, integré LLM y procesamiento de lenguaje natural mediante APIs, orquesté servicios y flujos con Node-RED y conecté asistentes y agentes con interfaces web para apoyar procesos corporativos.</p>
+              <p>Combino esa experiencia con desarrollo full stack y trayectoria en equipos de producto y tecnología. Trabajo con React, Angular, Java, Node.js y APIs REST/SOAP, con prácticas de calidad como TDD, pruebas unitarias, SonarQube y CI/CD. También utilizo herramientas de IA como apoyo al proceso de desarrollo, revisando y validando la implementación técnica.</p>
+              <p>Mi formación en Ingeniería de Sistemas cursó hasta octavo semestre en la Universidad Central (2017–2024); además, cursé hasta quinto semestre en la Universidad Nacional (2011–2014) y obtuve un título técnico en sistemas. Me interesa construir integraciones útiles, mantenibles y alineadas con las necesidades del negocio.</p>
             </div>
             <div className="about-image">
               <img src={profileImg} alt="Julian Andres Diaz Rueda" />
@@ -162,29 +161,29 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="section skills-bg">
+      <section id="skills" className="section skills-bg" aria-labelledby="skills-title">
         <div className="container">
-          <h2>Habilidades Técnicas</h2>
+          <h2 id="skills-title">Habilidades Técnicas</h2>
           <div className="skills-grid">
             <div className="skill-item">
-              <h3>IA & Automatización</h3>
-              <p>GenAI (IA Generativa), Node-RED, Orquestación de APIs, Integración de LLMs (OpenAI/Watson), Prompt Engineering</p>
+              <h3>IA aplicada y automatización</h3>
+              <p>IA Generativa, agentes y asistentes, integración de LLM y NLP vía APIs, Node-RED, Power Automate, prompt engineering, Ollama y Llama 3</p>
             </div>
             <div className="skill-item">
               <h3>Backend</h3>
-              <p>Java (8/11/17), Spring Boot, Node.js, PHP, Microservicios, Arquitectura Hexagonal, SOA, REST/SOAP</p>
+              <p>Java 8, Spring Boot, Node.js, Python, PHP, C++, microservicios, arquitectura hexagonal, SOA, REST y SOAP</p>
             </div>
             <div className="skill-item">
               <h3>Frontend</h3>
-              <p>React, Angular, TypeScript, JavaScript (ES6+), NPM, Redux, SCSS, Bootstrap</p>
+              <p>React, Angular, TypeScript, JavaScript, Next.js, Vite, Tailwind CSS y conexión de asistentes con interfaces web</p>
             </div>
             <div className="skill-item">
               <h3>Herramientas & DevOps</h3>
-              <p>Azure, Jenkins, CI/CD Pipelines, SonarQube, Git, Maven, Gradle, Fortify</p>
+              <p>Jenkins, CI/CD, SonarQube, JUnit 5, TDD, Git y herramientas de análisis de seguridad</p>
             </div>
             <div className="skill-item">
               <h3>Bases de Datos</h3>
-              <p>SQL Server, Oracle, MySQL, MongoDB, PostgreSQL, JPA, JDBC</p>
+              <p>MySQL, Oracle, SQL Server, MongoDB, H2, JPA y JDBC</p>
             </div>
           </div>
 
@@ -194,7 +193,7 @@ function App() {
 
             {/* Highlighted: Trabajo en Equipo */}
             <div className="soft-skill-item soft-skill-featured">
-              <div className="soft-skill-icon">🤝</div>
+              <div className="soft-skill-icon" aria-hidden="true">🤝</div>
               <h3>Trabajo en Equipo</h3>
               <p>Creo firmemente en el poder de la colaboración. Me integro con naturalidad en equipos multidisciplinarios, fomento un ambiente de confianza y respeto mutuo, y priorizo los objetivos colectivos sobre los individuales para entregar resultados excepcionales.</p>
               <span className="soft-skill-badge">Destacada</span>
@@ -202,32 +201,32 @@ function App() {
 
             {/* Highlighted: Mentoría & Enseñanza */}
             <div className="soft-skill-item soft-skill-featured">
-              <div className="soft-skill-icon">🎓</div>
+              <div className="soft-skill-icon" aria-hidden="true">🎓</div>
               <h3>Mentoría & Enseñanza</h3>
               <p>Me apasiona compartir el conocimiento y guiar a otros en su crecimiento profesional. Disfruto acompañar a desarrolladores junior y senior, transmitir buenas prácticas, y ayudar a que cada miembro del equipo alcance su máximo potencial técnico.</p>
               <span className="soft-skill-badge">Destacada</span>
             </div>
 
             <div className="soft-skill-item">
-              <div className="soft-skill-icon">🧭</div>
+              <div className="soft-skill-icon" aria-hidden="true">🧭</div>
               <h3>Liderazgo Técnico</h3>
               <p>Capacidad para guiar equipos hacia arquitecturas sólidas, tomar decisiones técnicas asertivas y ser referente técnico en proyectos complejos bajo metodologías ágiles.</p>
             </div>
 
             <div className="soft-skill-item">
-              <div className="soft-skill-icon">💬</div>
+              <div className="soft-skill-icon" aria-hidden="true">💬</div>
               <h3>Comunicación Efectiva</h3>
               <p>Habilidad para traducir conceptos técnicos complejos en lenguaje comprensible para stakeholders no técnicos, facilitando la alineación entre áreas de negocio y tecnología.</p>
             </div>
 
             <div className="soft-skill-item">
-              <div className="soft-skill-icon">🔄</div>
+              <div className="soft-skill-icon" aria-hidden="true">🔄</div>
               <h3>Adaptabilidad</h3>
               <p>Me adapto con facilidad a nuevos entornos, tecnologías y metodologías de trabajo. La agilidad y el aprendizaje continuo son parte esencial de mi perfil profesional.</p>
             </div>
 
             <div className="soft-skill-item">
-              <div className="soft-skill-icon">🎯</div>
+              <div className="soft-skill-icon" aria-hidden="true">🎯</div>
               <h3>Orientación a Resultados</h3>
               <p>Enfocado en entregar soluciones de alto impacto dentro de los plazos establecidos, con un ojo crítico en la calidad del código y la experiencia del usuario final.</p>
             </div>
@@ -237,9 +236,9 @@ function App() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="section portfolio-section">
+      <section id="portfolio" className="section portfolio-section" aria-labelledby="portfolio-title">
         <div className="container">
-          <h2>Portafolio de Proyectos</h2>
+          <h2 id="portfolio-title">Portafolio de Proyectos</h2>
           <p className="section-subtitle">Explora e interactúa con cada sitio web directamente desde su previsualización.</p>
           
           <div className="portfolio-grid">
@@ -260,13 +259,13 @@ function App() {
                 {/* Direct Browser mockup iframe integration */}
                 <div className="browser-mockup">
                   <div className="browser-topbar">
-                    <div className="browser-dots">
+                    <div className="browser-dots" aria-hidden="true">
                       <span className="dot dot-red"></span>
                       <span className="dot dot-yellow"></span>
                       <span className="dot dot-green"></span>
                     </div>
                     <div className="browser-urlbar">
-                      <span className="lock-icon">🔒</span>
+                      <span className="lock-icon" aria-hidden="true">🔒</span>
                       <span className="url-text">{project.url}</span>
                     </div>
                     <div className="browser-actions">
@@ -274,10 +273,11 @@ function App() {
                         href={project.url} 
                         target="_blank" 
                         rel="noopener noreferrer" 
+                        aria-label={`Abrir ${project.title} en una pestaña nueva`}
                         title="Abrir en pestaña nueva"
                         className="browser-btn"
                       >
-                        ↗
+                        <span aria-hidden="true">↗</span>
                       </a>
                     </div>
                   </div>
@@ -288,12 +288,13 @@ function App() {
                       className="browser-iframe"
                       sandbox="allow-scripts allow-same-origin allow-forms"
                       loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
                     ></iframe>
                   </div>
                 </div>
 
                 <p className="iframe-warning">
-                  ⚠️ <strong>Nota:</strong> Si el sitio no carga, haz clic en <a href={project.url} target="_blank" rel="noopener noreferrer">Abrir sitio ↗</a>.
+                  <span aria-hidden="true">⚠️ </span><strong>Nota:</strong> Si el sitio no carga, haz clic en <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Abrir ${project.title} en una pestaña nueva`}>Abrir sitio <span aria-hidden="true">↗</span></a>.
                 </p>
 
                 <div className="portfolio-card-actions">
@@ -302,6 +303,7 @@ function App() {
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="btn-external"
+                    aria-label={`Visitar el sitio oficial de ${project.title} en una pestaña nueva`}
                   >
                     Visitar Sitio Oficial ↗
                   </a>
@@ -313,86 +315,78 @@ function App() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="section">
+      <section id="experience" className="section" aria-labelledby="experience-title">
         <div className="container">
-          <h2>Experiencia Profesional</h2>
+          <h2 id="experience-title">Experiencia Profesional</h2>
           <div className="experience-item">
-            <h3>Especialista en IA y Automatización | Proyecto GENIA (Telefónica)</h3>
-            <p className="company">Telefónica</p>
-            <p className="date">8 Meses</p>
-            <p>
-              • Diseño técnico y desarrollo de GENIA, asistente virtual de IA Generativa para la optimización de
-              procesos corporativos.<br/>
-              • Orquestación de flujos lógicos complejos con Node-RED, integrando procesamiento de lenguaje natural
-              (NLP).<br/>
-              • Integración de modelos de lenguaje (LLM) vía APIs, asegurando la interoperabilidad con sistemas
-              legados.
-            </p>
+            <h3>Especialista en IA y Automatización</h3>
+            <p className="company">Fractalia Colombia · Proyecto GENIA para Telefónica</p>
+            <p className="date">Jun. 2025 – 23 abr. 2026</p>
+            <p>Desarrollé e integré asistentes de IA generativa para optimizar procesos corporativos. Orquesté con Node-RED flujos que conectan servicios web, APIs y capacidades de IA; integré LLM y NLP mediante APIs y conecté agentes con interfaces frontend. Colaboré con equipos multidisciplinarios en la definición e implementación de las soluciones.</p>
           </div>
           <div className="experience-item">
-            <h3>Senior Lead Developer | Scotiabank Colpatria</h3>
-            <p className="company">Fábrica Digital</p>
-            <p className="date">Jun. 2021 – Feb. 2025</p>
-            <p>
-              • Liderazgo técnico de equipos multidisciplinarios, garantizando la entrega de funcionalidades bancarias
-              críticas con alta disponibilidad.<br/>
-              • Diseño de microservicios escalables en Java y desarrollo de interfaces modernas en React/Angular.<br/>
-              • Implementación de TDD y estándares de calidad con SonarQube, reduciendo la deuda técnica en un
-              30%.<br/>
-              • Desarrollo de librerías internas (NPM) para estandarizar seguridad (JWT) y diseño visual en micro-
-              frontends.
-            </p>
+            <h3>Full Stack Developer</h3>
+            <p className="company">BRZY University</p>
+            <p className="date">Jun. 1 – ago. 1, 2026</p>
+            <p>Construí una plataforma pública y autenticada de capacitación con paneles por rol y funciones de incorporación, seguimiento del progreso, certificación y administración, usando PocketBase, React, JavaScript, React Router, Vite y Tailwind. Utilicé agentes de IA como apoyo durante el desarrollo y dirigí y validé la implementación técnica.</p>
           </div>
           <div className="experience-item">
-            <h3>Arquitecto Desarrollador | CEIBA (Consultoría Scotiabank)</h3>
-            <p className="company">CEIBA</p>
-            <p className="date">Ago. 2020 – Jun. 2021</p>
-            <p>
-              • Construcción de microservicios bajo Arquitectura Hexagonal en Java 8, mejorando la testabilidad del
-              sistema.<br/>
-              • Automatización de despliegues mediante pipelines de CI/CD (Jenkins) y ejecución de pruebas con JUnit
-              5.
-            </p>
+            <h3>Senior Advanced Developer / Tech Lead</h3>
+            <p className="company">Scotiabank Colpatria</p>
+            <p className="date">Jun. 2021 – feb. 2025</p>
+            <p>Lideré equipo y ceremonias Scrum, y desarrollé soluciones full stack con Angular y React. Apliqué TDD, pruebas unitarias, SonarQube y CI/CD como parte del ciclo de desarrollo y entrega.</p>
           </div>
           <div className="experience-item">
-            <h3>Fullstack Developer | Softtek</h3>
+            <h3>Architect Developer</h3>
+            <p className="company">CEIBA Software</p>
+            <p className="date">Jul. 2020 – jun. 2021</p>
+            <p>Desarrollé backend con Java 8 y arquitectura hexagonal, aplicaciones Angular y soluciones con bases de datos relacionales y NoSQL. Trabajé con JUnit 5, TDD, Jenkins y SonarQube.</p>
+          </div>
+          <div className="experience-item">
+            <h3>Java Developer</h3>
             <p className="company">Softtek</p>
-            <p className="date">Abr. 2017 – Jul. 2020</p>
-            <p>
-              • Liderazgo en la migración de arquitectura de datos de JDBC a JPA/Hibernate para optimizar consultas
-              en Ternium.<br/>
-              • Desarrollo de componentes reutilizables en Angular e implementación de patrones de diseño DTO y
-              Singleton.
-            </p>
+            <p className="date">Abr. 2017 – jul. 2020</p>
+            <p>Desarrollé microservicios Java y servicios REST/SOAP, además de interfaces con Angular y TypeScript. Trabajé con Oracle, SQL Server, JDBC, JPA y procesos de integración con Jenkins.</p>
           </div>
         </div>
       </section>
 
       {/* Education Section */}
-      <section id="education" className="section">
+      <section id="education" className="section" aria-labelledby="education-title">
         <div className="container">
-          <h2>Educación</h2>
+          <h2 id="education-title">Educación</h2>
           <div className="experience-item">
-            <h3>Ingeniería de Sistemas (8° Semestre)</h3>
-            <p className="company">Universidad Central de Colombia</p>
+            <h3>Estudios de Ingeniería de Sistemas (hasta 8.º semestre)</h3>
+            <p className="company">Universidad Central</p>
             <p className="date">2017 – 2024</p>
+          </div>
+          <div className="experience-item">
+            <h3>Estudios de Ingeniería de Sistemas (hasta 5.º semestre)</h3>
+            <p className="company">Universidad Nacional de Colombia</p>
+            <p className="date">2011 – 2014</p>
           </div>
           <div className="experience-item">
             <h3>Técnico en Sistemas de Información</h3>
             <p className="company">Colegio Bosques de Sherwood</p>
             <p className="date">2008 – 2010</p>
           </div>
+          <div className="experience-item">
+            <h3>Certificado Daxus: Inmersión IA en la Práctica</h3>
+            <p className="company">Daxus</p>
+            <p className="date">3 oct. 2026 · 8 horas · Certificado de participación</p>
+            <p><a href="/Certificado%20Daxus%20-%20Inmersi%C3%B3n%20IA%20en%20la%20Pr%C3%A1ctica.pdf" target="_blank" rel="noopener noreferrer">Ver certificado PDF (se abre en una pestaña nueva)</a></p>
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section contact-bg">
+      <section id="contact" className="section contact-bg" aria-labelledby="contact-title">
         <div className="container">
-          <h2>Contacto</h2>
+          <h2 id="contact-title">Contacto</h2>
           <div className="contact-info">
             <div className="contact-item">
               <h3>Email</h3>
-              <p>julian04280@gmail.com</p>
+              <p><a href="mailto:julian04280@gmail.com">julian04280@gmail.com</a></p>
             </div>
             <div className="contact-item">
               <h3>Teléfono</h3>
@@ -417,6 +411,7 @@ function App() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="footer">
